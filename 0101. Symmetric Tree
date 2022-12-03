@@ -1,0 +1,39 @@
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        return helper(root.left,root.right);  
+    }
+    public boolean helper(TreeNode x, TreeNode y) {
+        if (x == null && y == null) {
+            return true;
+        }
+        else if (y == null || x == null){
+            return false;
+        }
+        else if (x.val != y.val) {
+            return false;
+        }
+        return helper(x.left,y.right) && helper(x.right,y.left);
+    }
+}
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root.left);
+        queue.add(root.right);
+        while (!queue.isEmpty()) {
+            TreeNode x = queue.remove();
+            TreeNode y = queue.remove();
+            if (x == null && y == null) continue;
+            if (x == null || y == null) return false;
+            if (x.val != y.val) return false;
+            queue.add(x.left);
+            queue.add(y.right);
+            queue.add(x.right);
+            queue.add(y.left);
+        }
+        return true;
+}
+}
