@@ -1,0 +1,31 @@
+class Solution {
+    public int countNodes(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int num = 0;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            TreeNode x = queue.remove();
+            num++;
+            if (x.left != null) {
+                queue.add(x.left);
+            }
+            if (x.right != null) {
+                queue.add(x.right);
+            }
+        }
+        return num;
+    }
+}
+class Solution {
+    public int countNodes(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int right = countNodes(root.right);
+        int left = countNodes(root.left);
+        return 1 + right + left;
+    }
+}
