@@ -1,0 +1,69 @@
+class Solution {
+    public int sumOfLeftLeaves(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int sum = 0;
+        if(root.left == null && root.right == null) {
+            return sum;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int len = queue.size();
+            for (int i = 0; i < len; i++){
+            TreeNode x = queue.remove();
+            if(x.left != null) {
+                queue.add(x.left);
+                if(x.left.left == null && x.left.right == null) {
+                    sum = sum + x.left.val;
+                }
+            }
+            if(x.right != null) {
+                queue.add(x.right);
+            }
+            }
+        }
+        return sum;
+    }
+}
+class Solution {
+    public int sumOfLeftLeaves(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int sum = 0;
+        if(root.left == null && root.right == null) {
+            return sum;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) { 
+            TreeNode x = stack.pop();
+            if(x.left != null && x.left.left == null && x.left.right == null) {
+                sum = sum + x.left.val;
+            }
+            if(x.right != null) {
+                stack.add(x.right);
+            }
+            if(x.left != null) {
+                stack.add(x.left);
+            }
+        }
+        return sum;
+    }
+}
+class Solution {
+    public int sumOfLeftLeaves(TreeNode root) {  
+        if(root == null) {
+            return 0;
+        }
+        int left = sumOfLeftLeaves(root.left);
+        int right = sumOfLeftLeaves(root.right);
+        int sum = 0;
+         if(root.left != null && root.left.right == null && root.left.left == null) {
+            sum = root.left.val;
+        }
+        return sum + left + right;
+    }
+}
