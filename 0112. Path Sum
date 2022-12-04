@@ -1,0 +1,67 @@
+class Solution {
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        if (root == null) {
+            return false;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        Queue<Integer> queue1 = new LinkedList<>();
+        queue.add(root);
+        queue1.add(root.val);
+        while (!queue.isEmpty()) {
+            TreeNode x = queue.remove();
+            int y = queue1.remove();
+            if (y == targetSum && x.left == null && x.right == null) {
+                return true;
+            }
+            if (x.left != null) {
+                queue.add(x.left);
+                queue1.add(y + x.left.val);
+            }
+            if (x.right != null) {
+                queue.add(x.right);
+                queue1.add(y + x.right.val);
+            }
+        }
+        return false;
+    }
+}
+class Solution {
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        if (root == null) {
+            return false;
+        }
+        Stack<TreeNode> queue = new Stack<>();
+        Stack<Integer> queue1 = new Stack<>();
+        queue.push(root);
+        queue1.push(root.val);
+        while (!queue.isEmpty()) {
+            TreeNode x = queue.pop();
+            int y = queue1.pop();
+            if (y == targetSum && x.left == null && x.right == null) {
+                return true;
+            }
+            if (x.right != null) {
+                queue.push(x.right);
+                queue1.push(y + x.right.val);
+            }
+            if (x.left != null) {
+                queue.push(x.left);
+                queue1.push(y + x.left.val);
+            }
+        }
+        return false;
+    }
+}
+class Solution {
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        if (root==null) {
+            return false;
+        }
+        targetSum = targetSum - root.val;
+         if (root.left == null && root.right == null) {
+           if(targetSum == 0) return true;
+           return false;
+        }
+        return hasPathSum(root.left, targetSum) || hasPathSum(root.right, targetSum);
+    }
+}
