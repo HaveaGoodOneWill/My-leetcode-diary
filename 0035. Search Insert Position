@@ -17,3 +17,8 @@ class Solution {
         return left;
     }
 }
+What if the target value is not found?
+
+In this case, the loop will be stopped at the moment when right < left and nums[right] < target < nums[left]. 
+Hence, the proper position to insert the target is at the index left.
+
