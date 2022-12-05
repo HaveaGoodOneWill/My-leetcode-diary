@@ -1,0 +1,88 @@
+class Solution {
+  public List<Integer> findAnagrams(String s, String p) {
+    int ns = s.length(), np = p.length();
+    if (ns < np) return new ArrayList();
+    Map<Character, Integer> pCount = new HashMap();
+    Map<Character, Integer> sCount = new HashMap();
+    for (char ch : p.toCharArray()) {
+        pCount.put(ch, pCount.getOrDefault(ch, 0) + 1);  
+    }
+
+    List<Integer> output = new ArrayList();
+    for (int i = 0; i < ns; ++i) {
+      char ch = s.charAt(i);
+      sCount.put(ch, sCount.getOrDefault(ch, 0) + 1);  
+      if (i >= np) {
+        ch = s.charAt(i - np);
+        if (sCount.get(ch) == 1) {
+          sCount.remove(ch);
+        }
+        else {
+          sCount.put(ch, sCount.get(ch) - 1);
+        }
+      }
+      if (pCount.equals(sCount)) {
+        output.add(i - np + 1);
+      }
+    }
+    return output;
+  }
+}
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> res = new ArrayList<>();
+        int slen = s.length();
+        int plen = p.length();
+        if (slen < plen) {
+            return res;
+        }
+        int[] scount = new int[26];
+        int[] pcount = new int[26];
+        for (int i = 0; i < plen; i++) {
+            scount[s.charAt(i) - 'a']++;
+            pcount[p.charAt(i) - 'a']++;
+        }
+        if(Arrays.equals(scount, pcount)) {
+            res.add(0);
+        }
+        for(int i = 0; i < slen - plen; i++) {
+            scount[s.charAt(i) - 'a']--;
+            scount[s.charAt(i + plen) - 'a']++;
+            if(Arrays.equals(scount, pcount)) {
+            res.add(i + 1);
+        }
+        }
+         return res;}}
+    
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> res = new ArrayList<>();
+        int slen = s.length();
+        int plen = p.length();
+        if (slen < plen) {
+            return res;
+        }
+        Map<Character, Integer> scount = new HashMap();
+        Map<Character, Integer> pcount = new HashMap();
+        for (int i = 0; i < plen; i++) {
+            scount.put(s.charAt(i), scount.getOrDefault(s.charAt(i), 0) + 1);
+            pcount.put(p.charAt(i), pcount.getOrDefault(p.charAt(i), 0) + 1);
+        }
+        if(scount.equals(pcount)) {
+            res.add(0);
+        }
+        for(int i = 0; i < slen - plen; i++) {
+            if (scount.get(s.charAt(i)) == 1) {
+            scount.remove(s.charAt(i));
+        }
+        else {
+          scount.put(s.charAt(i), scount.get(s.charAt(i)) - 1);
+        }
+            scount.put(s.charAt(i + plen), scount.getOrDefault(s.charAt(i + plen), 0) + 1);
+            if(scount.equals(pcount)) {
+            res.add(i + 1);
+        }
+        }
+         return res;
+    }
+}
