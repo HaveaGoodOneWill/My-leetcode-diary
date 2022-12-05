@@ -1,0 +1,63 @@
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        if (ransomNote.length() > magazine.length()) {
+            return false;
+        }
+        int[] table = new int[26];
+        for (int i = 0; i < magazine.length(); i++) {
+            table[magazine.charAt(i) - 'a']++;
+        }
+        for (int i = 0; i < ransomNote.length(); i++) {
+            table[ransomNote.charAt(i) - 'a']--;
+        }
+        for (int i: table) {
+            if (i < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        if (ransomNote.length() > magazine.length()) {
+            return false;
+        }
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < magazine.length(); i++) {
+            char ch = magazine.charAt(i);
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
+        for (int i = 0; i < ransomNote.length(); i++) {
+            char ch = ransomNote.charAt(i);
+            map.put(ch, map.getOrDefault(ch, 0) - 1);
+        }
+        for (Map.Entry<Character, Integer> table: map.entrySet()) {
+            if (table.getValue() < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        if (ransomNote.length() > magazine.length()) {
+            return false;
+        }
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < magazine.length(); i++) {
+            char ch = magazine.charAt(i);
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
+        for (int i = 0; i < ransomNote.length(); i++) {
+            char ch = ransomNote.charAt(i);
+            map.put(ch, map.getOrDefault(ch, 0) - 1);
+            if (map.get(ch) < 0) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+}
