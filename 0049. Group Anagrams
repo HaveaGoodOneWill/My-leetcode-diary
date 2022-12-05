@@ -62,3 +62,24 @@ class Solution {
         return new ArrayList<List<String>>(map.values());
     }
 }
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> l = new ArrayList<List<String>>();
+        if (strs.length == 0) {
+            return new ArrayList<List<String>>();
+        }
+        Map<String, List<String>> map = new HashMap();
+        for(String str : strs) {
+            char[] array = str.toCharArray();
+            Arrays.sort(array);
+            String key = new String(array);
+            if (!map.containsKey(key)) {
+                map.put(key, new ArrayList<String>());
+            }
+            
+            map.get(key).add(str);
+        }
+        l.addAll(map.values());
+        return l;
+    }
+}
