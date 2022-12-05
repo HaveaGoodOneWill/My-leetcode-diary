@@ -41,3 +41,6 @@ class Solution {
         return leftbound;
     }
 }
+For find the right, we should let the left boundary keep going to right, so even we find the target at some point, we should keep going right,
+then for each while, we write down the mid. The last mid is what we want.
+Same thing for the find the left.
