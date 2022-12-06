@@ -1,0 +1,52 @@
+class Solution {
+    public int[] intersect(int[] nums1, int[] nums2) {
+        int s1 = nums1.length;
+        int s2 = nums2.length;
+        int[] res = new int[Math.max(s1, s2)];
+        if (s1 == 0 || s2 == 0 || nums1 == null || nums2 == null) {
+            return res;
+        }
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for (int i : nums1) {
+            map.put(i, map.getOrDefault(i, 0) + 1);
+        }
+        int num = 0;
+        for (int j : nums2) {
+            if (map.containsKey(j) && map.get(j) > 0) {
+                res[num++] = j;
+                map.put(j, map.get(j) - 1);
+            }
+        }
+       
+        return Arrays.copyOfRange(res, 0, num);
+
+    }
+}
+class Solution {
+    public int[] intersect(int[] nums1, int[] nums2) {
+        int s1 = nums1.length;
+        int s2 = nums2.length;
+        int[] res = new int[Math.max(s1, s2)];
+        if (s1 == 0 || s2 == 0 || nums1 == null || nums2 == null) {
+            return res;
+        }
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for (int i : nums1) {
+            map.put(i, map.getOrDefault(i, 0) + 1);
+        }
+        int num = 0;
+        for (int j : nums2) {
+            if (map.containsKey(j) && map.get(j) > 0) {
+                res[num++] = j;
+                map.put(j, map.get(j) - 1);
+            }
+        }
+        int[] res1 = new int[num];
+        for(int i = 0; i < num; i++) {
+            res1[i] = res[i];
+        }
+        return res1;
+
+    }
+}
+Console
