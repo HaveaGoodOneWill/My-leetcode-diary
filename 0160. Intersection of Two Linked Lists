@@ -1,0 +1,107 @@
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
+        ListNode A = headA;
+        ListNode B = headB;
+        while (A != B) {
+            if (A != null) {
+                A = A.next;
+            }
+            else if (A == null) {
+                A = headB;
+            }
+            if (B != null) {
+                B = B.next;
+            }
+            else if (B == null) {
+                B = headA;
+            }
+        }
+        return A;
+    }
+}
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
+        ListNode A = headA;
+        ListNode B = headB;
+        int lena = 0;
+        int lenb = 0;
+        while (A != null) {
+            A = A.next;
+            lena ++;
+        }
+        while (B != null) {
+            B = B.next;
+            lenb ++;
+        }
+        A = headA;
+        B = headB;
+        if (lenb > lena) {
+            //1. swap (lenA, lenB);
+            int tmpLen = lena;
+            lena = lenb;
+            lenb = tmpLen;
+            //2. swap (curA, curB);
+            ListNode tmpNode = A;
+            A = B;
+            B = tmpNode;
+        }
+        int gap = lena - lenb;
+        for (int i = 0; i < gap; i++) {
+            A = A.next;
+        }
+        while (A !=null) {
+            if (A == B) {
+                return A;
+            }
+            A = A.next;
+            B = B.next;
+        }
+        return null;
+    }
+}
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
+        ListNode A = headA;
+        ListNode B = headB;
+        int lena = 0;
+        int lenb = 0;
+        while (A != null) {
+            A = A.next;
+            lena ++;
+        }
+        while (B != null) {
+            B = B.next;
+            lenb ++;
+        }
+        A = headA;
+        B = headB;
+        int gap = lena - lenb;
+        if (gap < 0){
+        for (int i = 0; i < -gap; i++) {
+            B = B.next;
+        }
+        }
+        else {
+            for (int i = 0; i < gap; i++) {
+            A = A.next;
+        }
+        }
+        while (A !=null) {
+            if (A == B) {
+                return A;
+            }
+            A = A.next;
+            B = B.next;
+        }
+        return null;
+    }
+}
