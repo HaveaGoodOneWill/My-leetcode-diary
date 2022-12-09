@@ -1,0 +1,68 @@
+class Solution {
+    List<List<Integer>> res = new ArrayList<>();
+    boolean[] used;
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        used = new boolean[candidates.length];
+        Arrays.fill(used, false);
+        if(candidates == null) {
+            return res;
+        }
+        Arrays.sort(candidates);
+        backtrack(candidates, target, 0, 0);
+        return res;
+    }
+    List<Integer> temp = new ArrayList<>();
+    public void backtrack(int[] candidates, int target, int sum, int index) {
+        if(sum > target) {
+            return;
+        }
+        if(sum == target) {
+            res.add(new ArrayList<>(temp));
+            return;
+        }
+        for (int i = index; i < candidates.length; i++) {
+            if(i > 0 && candidates[i] == candidates[i - 1]&& !used[i - 1]){
+                continue;
+            }
+            used[i] = true;
+            temp.add(candidates[i]);
+            sum = sum + candidates[i];
+            backtrack(candidates, target, sum, i+ 1);
+            used[i] = false;
+            temp.remove(temp.size() - 1);
+            sum = sum - candidates[i];
+        }
+    }
+}
+class Solution {
+    List<List<Integer>> res = new ArrayList<>();
+    
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        if(candidates == null) {
+            return res;
+        }
+        Arrays.sort(candidates);
+        backtrack(candidates, target, 0, 0);
+        return res;
+    }
+    List<Integer> temp = new ArrayList<>();
+    public void backtrack(int[] candidates, int target, int sum, int index) {
+        if(sum > target) {
+            return;
+        }
+        if(sum == target) {
+            res.add(new ArrayList<>(temp));
+            return;
+        }
+        for (int i = index; i < candidates.length; i++) {
+            if(i > index && candidates[i] == candidates[i - 1]){
+                continue;
+            }
+            temp.add(candidates[i]);
+            sum = sum + candidates[i];
+            backtrack(candidates, target, sum, i+ 1);
+            temp.remove(temp.size() - 1);
+            sum = sum - candidates[i];
+        }
+    }
+}
