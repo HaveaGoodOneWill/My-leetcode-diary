@@ -1,0 +1,49 @@
+class Solution {
+    List<String> res = new ArrayList<>();
+    public List<String> restoreIpAddresses(String s) {
+        if (s == null || s.length() == 0 || s.length() > 12) {
+            return res;
+        }
+        backtrack(s, 0, 0);
+        return res;
+    }
+    public void backtrack(String s, int n, int point) {
+        if(point == 3) {
+            if (isValid(s, n, s.length() - 1)){
+            res.add(s);
+            }
+            return;
+        }
+        for (int i = n; i < s.length(); i++) {
+            if(isValid(s, n, i)) {
+                s = s.substring(0, i + 1) + "." +s.substring(i + 1);
+                point ++;
+                backtrack(s, i+2, point);
+                point --;
+                s = s.substring(0, i + 1) + s.substring(i + 2);
+            }
+            else {
+                break;
+            }
+        }
+    }
+    private Boolean isValid(String s, int start, int end) {
+        if (start > end) {
+            return false;
+        }
+        if (s.charAt(start) == '0' && start != end) { 
+            return false;
+        }
+        int num = 0;
+        for (int i = start; i <= end; i++) {
+            if (s.charAt(i) > '9' || s.charAt(i) < '0') {
+                return false;
+            }
+            num = num * 10 + (s.charAt(i) - '0');
+            if (num > 255) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
