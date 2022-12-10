@@ -1,0 +1,40 @@
+class Solution {
+    List<List<String>> res = new ArrayList<>();
+    List<String> temp = new ArrayList<>();
+    public List<List<String>> partition(String s) {
+        if (s == null || s.length() == 0) {
+            return res;
+        }
+        backtrack(s,0);
+        return res;
+    }
+    public void backtrack(String s, int j) {
+        if (j == s.length()) {
+            res.add(new ArrayList<>(temp));
+            return;
+        }
+        for (int i = j; i < s.length(); i++) {
+            if (isPalindrome(s, j, i)) {
+                String str = s.substring(j,i + 1);
+                temp.add(str);
+            }
+            else {
+                continue;
+            }
+            backtrack(s, i + 1);
+            temp.remove(temp.size() - 1);
+        }
+    }
+    public boolean isPalindrome(String s, int l, int e) {
+        int left = l;
+        int right = e;
+        while(left < right) {
+            if(s.charAt(left) != s.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+}
