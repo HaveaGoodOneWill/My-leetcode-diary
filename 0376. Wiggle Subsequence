@@ -1,0 +1,21 @@
+class Solution {
+    public int wiggleMaxLength(int[] nums) {
+        if (nums.length <= 1) {
+            return nums.length;
+        }
+        int curdiff = 0;
+        int prediff = nums[1] - nums[0];
+        int count = 1;
+        if (prediff != 0) {
+            count = 2;
+        }
+        for (int i = 2; i < nums.length; i++) {
+            curdiff = nums[i] - nums[i - 1];
+            if((curdiff > 0 && prediff <=0) || (curdiff < 0 && prediff >=0)) {
+                count++;
+                prediff = curdiff;
+            }
+        }
+        return count;
+    }
+}
