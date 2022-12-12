@@ -1,0 +1,35 @@
+class Solution {
+    public TreeNode searchBST(TreeNode root, int val) {
+        Queue<TreeNode> queue= new LinkedList<>();
+        queue.add(root);
+        while(!queue.isEmpty()) {
+            TreeNode x = queue.remove();
+            if (x.val == val) {
+                return x;
+            }
+            if (x.left != null) {
+                queue.add(x.left);
+            }
+            if (x.right != null) {
+                queue.add(x.right);
+            }
+        }
+        return null;
+    }
+}
+class Solution {
+    public TreeNode searchBST(TreeNode root, int val) {
+        while (root != null) {
+            if (val < root.val) {
+                root = root.left;
+            }
+            else if (val > root.val) {
+                root = root.right;
+            }
+            else {
+                return root;
+            }
+        }
+        return null;
+    }
+}
