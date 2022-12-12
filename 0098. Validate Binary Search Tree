@@ -1,0 +1,19 @@
+class Solution {
+    long max = Long.MIN_VALUE;
+    public boolean isValidBST(TreeNode root) {
+        
+        if(root == null) {
+            return true;
+        }
+        boolean x = isValidBST(root.left);
+        if(root.val > max) {
+            max = root.val;
+        }
+        else {
+            return false;
+        }
+        boolean y = isValidBST(root.right);
+        return x && y;
+    }
+    
+}
