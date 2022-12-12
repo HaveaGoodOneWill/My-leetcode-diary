@@ -17,3 +17,25 @@ class Solution {
     }
     
 }
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        Long y = Long.MIN_VALUE;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode x =root;
+        while(x != null || !stack.isEmpty()) {
+            while (x != null) {
+                stack.push(x);
+                x = x.left;
+            }
+            x = stack.pop();
+            if(x.val > y) {
+                y = (long)x.val;
+            }
+            else {
+                return false;
+            }
+            x = x.right;
+        }
+        return true;
+    }
+}
