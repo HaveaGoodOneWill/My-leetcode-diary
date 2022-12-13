@@ -1,0 +1,32 @@
+class Solution {
+    public int[] findMode(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode x = root;
+        int maxcount = 0;
+        int count = 0;
+        TreeNode pre = null;
+        List<Integer> result = new ArrayList<>();
+        while (x != null || !stack.isEmpty()) {
+            while (x != null) {
+                stack.push(x);
+                x = x.left;
+            }
+            x = stack.pop();
+            if (pre == null || x.val != pre.val) {
+                    count = 1;
+                }else {
+                    count++;
+                }
+            if (count > maxcount) {
+                    maxcount = count;
+                    result.clear();
+                    result.add(x.val);
+                }else if (count == maxcount) {
+                    result.add(x.val);
+                }
+            pre = x;
+            x = x.right;
+        }
+        return result.stream().mapToInt(Integer::intValue).toArray();
+    }
+}
