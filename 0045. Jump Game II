@@ -1,0 +1,24 @@
+class Solution {
+    public int jump(int[] nums) {
+        if (nums.length == 1 || nums.length == 0 || nums == null) {
+            return 0;
+        }
+        int count = 0;
+        int distance = 0;
+        int maxdistance = 0;
+        for (int i = 0; i <= maxdistance; i++) {
+            int temp = i + nums[i];
+            maxdistance = Math.max(maxdistance, temp);
+            
+            if (maxdistance >= nums.length - 1) {
+                count ++;
+                break;
+            }
+            if (i == distance) {
+                distance = maxdistance;
+                count++;
+            }
+        }
+        return count;
+    }
+}
