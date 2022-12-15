@@ -40,3 +40,48 @@ class Solution {
         //throw new IllegalArgumentException();
     }
 }
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        if (nums1.length > nums2.length) {
+            int[] temp = nums1;
+            nums1 = nums2;
+            nums2 = temp;
+        }
+        int x = nums1.length;
+        int y = nums2.length;
+        int sum = x + y;
+        int totalleft = (x + y + 1) / 2; 
+        int low = 0;
+        int high = x;
+        while (low < high) {
+            int partaa = low + (high - low) / 2;
+            int partbb = totalleft - partaa;
+            if (nums2[partbb - 1] > nums1[partaa]) {
+                low = partaa + 1;
+            }
+            else {
+                high = partaa;
+            }
+        }
+            int parta = low + (high - low) / 2;
+            int partb = totalleft - parta;
+            int partaleft = parta == 0 ? Integer.MIN_VALUE : nums1[parta - 1];
+            int partaright = parta == x ? Integer.MAX_VALUE : nums1[parta];
+
+            int partbleft = partb == 0 ? Integer.MIN_VALUE : nums2[partb - 1];
+            int partbright = partb == y ? Integer.MAX_VALUE : nums2[partb];
+
+            if (partaleft <= partbright && partbleft <= partaright) {
+                if (sum % 2 == 0) {
+                    return ((double) Math.max(partaleft, partbleft) + Math.min(partaright, partbright)) / 2;
+                }
+                else {
+                    return Math.max(partaleft, partbleft);
+                }
+            }
+           
+        
+        return 0.0;
+        //throw new IllegalArgumentException();
+    }
+}
