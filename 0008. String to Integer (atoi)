@@ -1,0 +1,64 @@
+class Solution {
+    public int myAtoi(String s) {
+        int sign = 1;
+        int length = s.length();
+        int index = 0;
+        int res = 0;
+        while (index < length && s.charAt(index) == ' ') {
+            index++;
+        }
+        if (index < length && s.charAt(index) == '+') {
+            index++;
+        }
+        else if (index < length && s.charAt(index) == '-') {
+            sign = -1;
+            index++;
+            
+        }
+       
+        while (index < length && Character.isDigit(s.charAt(index))) {
+            int digit = s.charAt(index) - '0';
+            if ((res > Integer.MAX_VALUE/ 10 && sign == 1) || 
+                (res == Integer.MAX_VALUE / 10 && digit > Integer.MAX_VALUE % 10 && sign == 1)) {
+                return Integer.MAX_VALUE;
+            }
+            if ((-res < Integer.MIN_VALUE/ 10 && sign == -1)|| 
+                (-res == Integer.MIN_VALUE / 10 && -digit < Integer.MIN_VALUE % 10 && sign == -1)) {
+                return  Integer.MIN_VALUE;
+            }
+            res = 10 * res + digit;
+            index++;
+        }
+        return res * sign;
+    }
+}
+class Solution {
+    public int myAtoi(String s) {
+        int sign = 1;
+        int length = s.length();
+        int index = 0;
+        int res = 0;
+        while (index < length && s.charAt(index) == ' ') {
+            index++;
+        }
+        if (index < length && s.charAt(index) == '+') {
+            index++;
+        }
+        else if (index < length && s.charAt(index) == '-') {
+            sign = -1;
+            index++;
+            
+        }
+       
+        while (index < length && Character.isDigit(s.charAt(index))) {
+            int digit = s.charAt(index) - '0';
+            if (res > Integer.MAX_VALUE / 10|| 
+                (res == Integer.MAX_VALUE / 10 && digit > Integer.MAX_VALUE % 10)) {
+                return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            }
+            res = 10 * res + digit;
+            index++;
+        }
+        return res * sign;
+    }
+}
