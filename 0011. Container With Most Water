@@ -1,0 +1,31 @@
+class Solution {
+    public int maxArea(int[] height) {
+        int max = 0;
+        int x = 0;
+        int left = 0;
+        int right = height.length - 1;
+        while (left < right) {
+            x = Math.min(height[left], height[right]) * (right - left);
+            max = Math.max(x, max);
+            if (height[right] > height[left]) {
+                left++;
+            }
+            else if (height[right] <= height[left]) {
+                right--;
+            }
+        }
+        return max;
+    }
+}
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        l, r = 0, len(height) - 1
+        ans = 0
+        while l < r:
+            area = min(height[l], height[r]) * (r - l)
+            ans = max(ans, area)
+            if height[l] >= height[r] :
+                r = r - 1
+            else :
+                l = l + 1
+        return ans
