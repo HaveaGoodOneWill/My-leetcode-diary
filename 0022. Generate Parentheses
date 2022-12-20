@@ -1,0 +1,24 @@
+class Solution {
+    List<String> res = new ArrayList<>();
+    public List<String> generateParenthesis(int n) {
+        backtrack(0, 0, n);
+        return res;
+    }
+    StringBuilder sb = new StringBuilder();
+    public void backtrack(int open, int close, int max) {
+        if (sb.length() == max * 2) {
+            res.add(sb.toString());
+            return;
+        }
+        if (open < max) {
+            sb.append("(");
+            backtrack(open + 1, close, max);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        if (close < open) {
+            sb.append(")");
+            backtrack(open, close + 1, max);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+    }
+}
