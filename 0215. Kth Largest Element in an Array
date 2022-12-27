@@ -15,3 +15,46 @@ class Solution {
         return heap.poll();        
   }
 }
+class Solution {
+    int[] nums;
+    public int findKthLargest(int[] nums, int k) {
+        this.nums = nums;
+        int size = nums.length;
+        return quick(0, size - 1, size - k);
+    }
+    private void swap (int a, int b) {
+        int temp = this.nums[a];
+        this.nums[a] = this.nums[b];
+        this.nums[b] = temp;
+    }
+    private int quick(int left, int right, int pos) {
+        if(left == right) {
+            return this.nums[left];
+        }
+        Random random = new Random();
+        int piovt = left + random.nextInt(right - left);
+        piovt = partition (left, right , piovt);
+        if(piovt == pos) {
+            return this.nums[pos];
+        }
+        else if (piovt > pos) {
+            return quick(left, piovt - 1, pos);
+        }
+        else {
+            return quick(piovt+1, right, pos);
+        }
+    }
+    private int partition(int left, int right, int pivot) {
+        int pi = this.nums[pivot];
+        swap(pivot,right);
+        int store = left;
+        for(int i = left; i <= right; i++) {
+            if(this.nums[i] < pi) {
+                swap(store,i);
+                store++;
+            }
+        }
+        swap(right,store);
+        return store;
+    }
+}
