@@ -1,0 +1,27 @@
+class Solution {
+    public void recoverTree(TreeNode root) {
+        List<TreeNode> res = new ArrayList<>();
+        dfs(root,res);
+        TreeNode x = null;
+        TreeNode y = null;
+        for(int i = 0; i < res.size() - 1; i++) {
+            if(res.get(i).val > res.get(i+1).val) {
+                y = res.get(i+1);
+                if(x==null) {
+                    x = res.get(i);
+                }
+            }
+        }
+        if(x!=null && y != null) {
+            int temp = x.val;
+            x.val = y.val;
+            y.val = temp;
+        }
+    }
+    public void dfs(TreeNode root, List<TreeNode> res) {
+        if (root == null) return;
+        dfs(root.left,res);
+        res.add(root);
+        dfs(root.right,res);
+    }
+}
