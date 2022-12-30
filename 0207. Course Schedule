@@ -1,0 +1,38 @@
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        int n = numCourses;
+        int[] num = new int[numCourses];
+        Map<Integer,List<Integer>> res = new HashMap();
+        for(int[] pre : prerequisites) {
+            List<Integer> l = res.getOrDefault(pre[1], new ArrayList<>());
+            l.add(pre[0]);
+            num[pre[0]]++;
+            res.put(pre[1],l);
+        }
+        Queue<Integer> queue = new LinkedList<>();
+        for(int i = 0; i < num.length;i++) {
+            if(num[i]==0) {
+                queue.add(i);
+            }
+        }
+        int count = 0;
+        while(!queue.isEmpty()) {
+            int x = queue.poll();
+            if(num[x]==0) {
+                count++;
+            }
+            if(!res.containsKey(x)) {
+                continue;
+            }
+            for(int i: res.get(x)) {
+                
+                    num[i]--;
+                    if(num[i]==0) {
+                        queue.add(i);
+                    }
+                
+            }
+        }
+        return count == n;
+    }
+}
