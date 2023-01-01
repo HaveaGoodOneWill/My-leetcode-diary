@@ -1,0 +1,26 @@
+class Solution {
+    public int longestSubstring(String s, int k) {
+        return help(s, 0, s.length(), k);
+    }
+    public int help(String s, int start, int end, int k) {
+        if (end - start < k) {
+            return 0;
+        }
+        int[] num = new int[26];
+        for (int i = start; i < end; i++) {
+            num[s.charAt(i) - 'a']++;
+        }
+        for (int j = 0; j < 26; j++) {
+            if (num[j] > 0 && num[j] < k) {
+                for (int kk = start; kk < end; kk++) {
+                    if (s.charAt(kk) == j + 'a') {
+                        int left = help(s, start, kk, k);
+                        int right = help(s, kk+1, end, k);
+                        return Math.max(right, left);
+                    }
+                }
+            }
+        }
+        return end - start;
+    }
+}
